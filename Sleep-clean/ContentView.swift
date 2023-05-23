@@ -26,7 +26,7 @@ struct HomeView: View {
                     .cornerRadius(10)
 //                    .overlay(
 //                        RoundedRectangle(cornerRadius:10)
-//                            .stroke(Color.blue, lineWidth: 2)
+//                            .stroke(Color.mint, lineWidth: 2)
 //                    )
             }
         }
@@ -217,7 +217,7 @@ struct SleepScreen: View {
     var body: some View{
         ZStack{
             LinearGradient(
-                gradient: Gradient(colors: [Color.black.opacity(0.7), Color.blue.opacity(0.7)]),
+                gradient: Gradient(colors: [Color.black.opacity(0.7), Color.mint.opacity(0.7)]),
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing
                     )
