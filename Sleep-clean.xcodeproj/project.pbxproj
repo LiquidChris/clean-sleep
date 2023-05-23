@@ -35,6 +35,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EB98D2052A1D1667008B8A5C /* data_for_weka_aw.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = data_for_weka_aw.csv; sourceTree = "<group>"; };
+		EB98D2092A1D16A6008B8A5C /* BetterRest.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = BetterRest.csv; sourceTree = "<group>"; };
 		EBC712562A1BECB700CBF261 /* Sleep-clean.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sleep-clean.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBC712592A1BECB700CBF261 /* Sleep_cleanApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sleep_cleanApp.swift; sourceTree = "<group>"; };
 		EBC7125B2A1BECB700CBF261 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -73,6 +75,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EB98D2082A1D169D008B8A5C /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				EB98D2052A1D1667008B8A5C /* data_for_weka_aw.csv */,
+				EB98D2092A1D16A6008B8A5C /* BetterRest.csv */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		EBC7124D2A1BECB700CBF261 = {
 			isa = PBXGroup;
 			children = (
@@ -96,6 +107,7 @@
 		EBC712582A1BECB700CBF261 /* Sleep-clean */ = {
 			isa = PBXGroup;
 			children = (
+				EB98D2082A1D169D008B8A5C /* Data */,
 				EBC712832A1C406E00CBF261 /* ViewController.swift */,
 				EBC712592A1BECB700CBF261 /* Sleep_cleanApp.swift */,
 				EBC7125B2A1BECB700CBF261 /* ContentView.swift */,
