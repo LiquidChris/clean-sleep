@@ -14,6 +14,7 @@
 		EBC7126B2A1BECB800CBF261 /* Sleep_cleanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC7126A2A1BECB800CBF261 /* Sleep_cleanTests.swift */; };
 		EBC712752A1BECB800CBF261 /* Sleep_cleanUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC712742A1BECB800CBF261 /* Sleep_cleanUITests.swift */; };
 		EBC712772A1BECB800CBF261 /* Sleep_cleanUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC712762A1BECB800CBF261 /* Sleep_cleanUITestsLaunchTests.swift */; };
+		EBC712842A1C406E00CBF261 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC712832A1C406E00CBF261 /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		EBC712702A1BECB800CBF261 /* Sleep-cleanUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Sleep-cleanUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBC712742A1BECB800CBF261 /* Sleep_cleanUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sleep_cleanUITests.swift; sourceTree = "<group>"; };
 		EBC712762A1BECB800CBF261 /* Sleep_cleanUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sleep_cleanUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		EBC712832A1C406E00CBF261 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 		EBC712582A1BECB700CBF261 /* Sleep-clean */ = {
 			isa = PBXGroup;
 			children = (
+				EBC712832A1C406E00CBF261 /* ViewController.swift */,
 				EBC712592A1BECB700CBF261 /* Sleep_cleanApp.swift */,
 				EBC7125B2A1BECB700CBF261 /* ContentView.swift */,
 				EBC7125D2A1BECB800CBF261 /* Assets.xcassets */,
@@ -257,6 +260,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBC712842A1C406E00CBF261 /* ViewController.swift in Sources */,
 				EBC7125C2A1BECB700CBF261 /* ContentView.swift in Sources */,
 				EBC7125A2A1BECB700CBF261 /* Sleep_cleanApp.swift in Sources */,
 			);
