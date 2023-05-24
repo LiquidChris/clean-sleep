@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4FDD32FB2A1EAE4E00A1DD18 /* workingmlsleep 2.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = 4FDD32FA2A1EAE4E00A1DD18 /* workingmlsleep 2.mlpackage */; };
+		4FDD32FD2A1EAE5E00A1DD18 /* workingmlsleep 2.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = 4FDD32FC2A1EAE5E00A1DD18 /* workingmlsleep 2.mlpackage */; };
 		EBC7125A2A1BECB700CBF261 /* Sleep_cleanApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC712592A1BECB700CBF261 /* Sleep_cleanApp.swift */; };
 		EBC7125C2A1BECB700CBF261 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC7125B2A1BECB700CBF261 /* ContentView.swift */; };
 		EBC7125E2A1BECB800CBF261 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EBC7125D2A1BECB800CBF261 /* Assets.xcassets */; };
@@ -35,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4FDD32FA2A1EAE4E00A1DD18 /* workingmlsleep 2.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; name = "workingmlsleep 2.mlpackage"; path = "../../../../../Desktop/workingmlsleep 2.mlpackage"; sourceTree = "<group>"; };
+		4FDD32FC2A1EAE5E00A1DD18 /* workingmlsleep 2.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; name = "workingmlsleep 2.mlpackage"; path = "../../../../Desktop/workingmlsleep 2.mlpackage"; sourceTree = "<group>"; };
 		EB98D2052A1D1667008B8A5C /* data_for_weka_aw.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = data_for_weka_aw.csv; sourceTree = "<group>"; };
 		EB98D2092A1D16A6008B8A5C /* BetterRest.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = BetterRest.csv; sourceTree = "<group>"; };
 		EBC712562A1BECB700CBF261 /* Sleep-clean.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sleep-clean.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -78,6 +82,7 @@
 		EB98D2082A1D169D008B8A5C /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				4FDD32FA2A1EAE4E00A1DD18 /* workingmlsleep 2.mlpackage */,
 				EB98D2052A1D1667008B8A5C /* data_for_weka_aw.csv */,
 				EB98D2092A1D16A6008B8A5C /* BetterRest.csv */,
 			);
@@ -110,6 +115,7 @@
 				EB98D2082A1D169D008B8A5C /* Data */,
 				EBC712832A1C406E00CBF261 /* ViewController.swift */,
 				EBC712592A1BECB700CBF261 /* Sleep_cleanApp.swift */,
+				4FDD32FC2A1EAE5E00A1DD18 /* workingmlsleep 2.mlpackage */,
 				EBC7125B2A1BECB700CBF261 /* ContentView.swift */,
 				EBC7125D2A1BECB800CBF261 /* Assets.xcassets */,
 				EBC7125F2A1BECB800CBF261 /* Preview Content */,
@@ -273,7 +279,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				EBC712842A1C406E00CBF261 /* ViewController.swift in Sources */,
+				4FDD32FD2A1EAE5E00A1DD18 /* workingmlsleep 2.mlpackage in Sources */,
 				EBC7125C2A1BECB700CBF261 /* ContentView.swift in Sources */,
+				4FDD32FB2A1EAE4E00A1DD18 /* workingmlsleep 2.mlpackage in Sources */,
 				EBC7125A2A1BECB700CBF261 /* Sleep_cleanApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
