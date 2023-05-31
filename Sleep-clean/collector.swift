@@ -28,7 +28,7 @@ class HealthDataFetcher {
     }
 
     func requestHealthDataAccess() {
-        let healthKitTypes: Set = [
+        let healthKitTypes: Set<HKObjectType> = [
             HKObjectType.characteristicType(forIdentifier: .biologicalSex)!,
             HKObjectType.characteristicType(forIdentifier: .dateOfBirth)!,
             HKObjectType.quantityType(forIdentifier: .height)!,
@@ -37,7 +37,7 @@ class HealthDataFetcher {
             HKObjectType.quantityType(forIdentifier: .heartRate)!,
             HKObjectType.quantityType(forIdentifier: .distanceWalkingRunning)!
         ]
-        healthStore.requestAuthorization(toShare: healthKitTypes, read: healthKitTypes) { (success, error) in
+        healthStore.requestAuthorization(toShare: nil, read: healthKitTypes) { (success, error) in
             if success {
                 self.fetchHealthDataAndMakePrediction()
             } else if let error = error {
