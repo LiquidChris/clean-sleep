@@ -11,11 +11,11 @@ import CoreML
 
 class HealthDataCollector {
     private let healthStore = HKHealthStore()
-    private var model: MLModel?
+    private var model: applewatchregression_1?
     
     init() {
-        if let modelPath = Bundle.main.url(forResource: "YourModel", withExtension: "mlmodelc") {
-            model = try? MLModel(contentsOf: modelPath)
+        if let modelPath = Bundle.main.url(forResource: "applewatchregression_1", withExtension: "mlmodelc") {
+            model = try? applewatchregression_1(contentsOf: modelPath)
         }
     }
     
@@ -27,7 +27,6 @@ class HealthDataCollector {
             HKObjectType.quantityType(forIdentifier: .bodyMass)!,
             HKObjectType.quantityType(forIdentifier: .stepCount)!,
             HKObjectType.quantityType(forIdentifier: .heartRate)!,
-            HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
             HKObjectType.quantityType(forIdentifier: .distanceWalkingRunning)!
         ]
         
@@ -48,7 +47,6 @@ class HealthDataCollector {
                 var weight: Double? = nil
                 var stepCount: Double? = nil
                 var heartRate: Double? = nil
-                var activeEnergy: Double? = nil
                 var distance: Double? = nil
                 
                 group.enter()
@@ -76,34 +74,24 @@ class HealthDataCollector {
                 }
                 
                 group.enter()
-                self.getMostRecentSample(for: .activeEnergyBurned) { result in
-                    activeEnergy = result
-                    group.leave()
-                }
-                
-                group.enter()
                 self.getMostRecentSample(for: .distanceWalkingRunning) { result in
                     distance = result
                     group.leave()
                 }
                 
                 group.notify(queue: .main) {
-                    guard let height = height, let weight = weight, let stepCount = stepCount, let heartRate = heartRate, let activeEnergy = activeEnergy, let distance = distance else {
+                    guard let height = height, let weight = weight, let stepCount = stepCount, let heartRate = heartRate, let distance = distance else {
                         print("Failed to fetch some data")
                         return
                     }
                     
-                    let inputArray = try? MLMultiArray(shape: [8], dataType: .double)
-                    inputArray?[0] = NSNumber(value: age)
-                    inputArray?[1] = NSNumber(value: biologicalSex)
-                    inputArray?[2] = NSNumber(value: height)
-                    inputArray?[3] = NSNumber(value: weight)
-                    inputArray?[4] = NSNumber(value: stepCount)
-                    inputArray?[5] = NSNumber(value: heartRate)
-                    inputArray?[6] = NSNumber(value: activeEnergy)
-                    inputArray?[7] = NSNumber(value: distance)
+                    let activityTrimmed = 0.0 // Assume you have a way to determine activity_trimmed
                     
-                    if let predictionOutput = try? self.model?.prediction(from: inputArray! as! MLFeatureProvider) {
+                    let stepsXDistance = stepCount * distance
+                    
+                    let inputData = applewatchregression_1Input(Age: Double(age), Gender: Double(biologicalSex), Height: height, Weight: weight, Applewatch_Steps_LE: stepCount, Applewatch_Heart_LE: heartRate, Applewatch_Distance_LE: distance)
+                    
+                    if let predictionOutput = try? self.model?.prediction(input: inputData) {
                         print("Prediction Output: \(predictionOutput)")
                     }
                 }
@@ -133,8 +121,6 @@ class HealthDataCollector {
                 unit = HKUnit.count()
             case .heartRate:
                 unit = HKUnit.count().unitDivided(by: HKUnit.minute())
-            case .activeEnergyBurned:
-                unit = HKUnit.kilocalorie()
             default:
                 print("Unknown quantity type \(type)")
                 return
@@ -144,5 +130,4 @@ class HealthDataCollector {
         }
         healthStore.execute(query)
     }
-
 }
