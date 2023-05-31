@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4FD56E632A27015500A4AA9A /* applewatchregression 1.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 4FD56E622A27015500A4AA9A /* applewatchregression 1.mlmodel */; };
+		4FD56E652A27045D00A4AA9A /* collector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD56E642A27045D00A4AA9A /* collector.swift */; };
 		4FDD32FB2A1EAE4E00A1DD18 /* workingmlsleep 2.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = 4FDD32FA2A1EAE4E00A1DD18 /* workingmlsleep 2.mlpackage */; };
 		4FDD32FD2A1EAE5E00A1DD18 /* workingmlsleep 2.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = 4FDD32FC2A1EAE5E00A1DD18 /* workingmlsleep 2.mlpackage */; };
 		EBC7125A2A1BECB700CBF261 /* Sleep_cleanApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC712592A1BECB700CBF261 /* Sleep_cleanApp.swift */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		4FD56E622A27015500A4AA9A /* applewatchregression 1.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = "applewatchregression 1.mlmodel"; path = "../../../../Desktop/applewatchregression 1.mlmodel"; sourceTree = "<group>"; };
+		4FD56E642A27045D00A4AA9A /* collector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = collector.swift; sourceTree = "<group>"; };
 		4FDD32FA2A1EAE4E00A1DD18 /* workingmlsleep 2.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; name = "workingmlsleep 2.mlpackage"; path = "../../../../../Desktop/workingmlsleep 2.mlpackage"; sourceTree = "<group>"; };
 		4FDD32FC2A1EAE5E00A1DD18 /* workingmlsleep 2.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; name = "workingmlsleep 2.mlpackage"; path = "../../../../Desktop/workingmlsleep 2.mlpackage"; sourceTree = "<group>"; };
 		EB98D2052A1D1667008B8A5C /* data_for_weka_aw.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = data_for_weka_aw.csv; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 			children = (
 				EB98D2082A1D169D008B8A5C /* Data */,
 				EBC712832A1C406E00CBF261 /* ViewController.swift */,
+				4FD56E642A27045D00A4AA9A /* collector.swift */,
 				EBC712592A1BECB700CBF261 /* Sleep_cleanApp.swift */,
 				4FD56E622A27015500A4AA9A /* applewatchregression 1.mlmodel */,
 				4FDD32FC2A1EAE5E00A1DD18 /* workingmlsleep 2.mlpackage */,
@@ -285,6 +288,7 @@
 				4FD56E632A27015500A4AA9A /* applewatchregression 1.mlmodel in Sources */,
 				4FDD32FD2A1EAE5E00A1DD18 /* workingmlsleep 2.mlpackage in Sources */,
 				EBC7125C2A1BECB700CBF261 /* ContentView.swift in Sources */,
+				4FD56E652A27045D00A4AA9A /* collector.swift in Sources */,
 				4FDD32FB2A1EAE4E00A1DD18 /* workingmlsleep 2.mlpackage in Sources */,
 				EBC7125A2A1BECB700CBF261 /* Sleep_cleanApp.swift in Sources */,
 			);
