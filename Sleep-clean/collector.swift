@@ -9,18 +9,26 @@ import Foundation
 import HealthKit
 import CoreML
 
-class HealthDataCollector {
-    private let healthStore = HKHealthStore()
-    private var model: applewatchregression_1?
-    
+class HealthDataFetcher {
+    let healthStore = HKHealthStore()
+    var model: applewatchregression_1?
+
     init() {
-        if let modelPath = Bundle.main.url(forResource: "applewatchregression_1", withExtension: "mlmodelc") {
-            model = try? applewatchregression_1(contentsOf: modelPath)
+        if HKHealthStore.isHealthDataAvailable() {
+            // Load the CoreML Model
+            if let modelURL = Bundle.main.url(forResource: "applewatchregression_1", withExtension: "mlmodelc") {
+                do {
+                    let model = try applewatchregression_1(contentsOf: modelURL)
+                    self.model = model
+                } catch {
+                    print("Error loading model: \(error)")
+                }
+            }
         }
     }
-    
-    func collectDataAndPredict() {
-        let typesToRead: Set<HKObjectType> = [
+
+    func requestHealthDataAccess() {
+        let healthKitTypes: Set = [
             HKObjectType.characteristicType(forIdentifier: .biologicalSex)!,
             HKObjectType.characteristicType(forIdentifier: .dateOfBirth)!,
             HKObjectType.quantityType(forIdentifier: .height)!,
@@ -29,105 +37,118 @@ class HealthDataCollector {
             HKObjectType.quantityType(forIdentifier: .heartRate)!,
             HKObjectType.quantityType(forIdentifier: .distanceWalkingRunning)!
         ]
-        
-        healthStore.requestAuthorization(toShare: [], read: typesToRead) { (success, error) in
-            guard success else {
-                print("HealthKit authorization failed")
-                return
-            }
-            
-            do {
-                let biologicalSex = try self.healthStore.biologicalSex().biologicalSex.rawValue
-                let dateOfBirth = try self.healthStore.dateOfBirthComponents().date
-                
-                let age = Calendar.current.dateComponents([.year], from: dateOfBirth!, to: Date()).year!
-                
-                let group = DispatchGroup()
-                var height: Double? = nil
-                var weight: Double? = nil
-                var stepCount: Double? = nil
-                var heartRate: Double? = nil
-                var distance: Double? = nil
-                
-                group.enter()
-                self.getMostRecentSample(for: .height) { result in
-                    height = result
-                    group.leave()
-                }
-                
-                group.enter()
-                self.getMostRecentSample(for: .bodyMass) { result in
-                    weight = result
-                    group.leave()
-                }
-                
-                group.enter()
-                self.getMostRecentSample(for: .stepCount) { result in
-                    stepCount = result
-                    group.leave()
-                }
-                
-                group.enter()
-                self.getMostRecentSample(for: .heartRate) { result in
-                    heartRate = result
-                    group.leave()
-                }
-                
-                group.enter()
-                self.getMostRecentSample(for: .distanceWalkingRunning) { result in
-                    distance = result
-                    group.leave()
-                }
-                
-                group.notify(queue: .main) {
-                    guard let height = height, let weight = weight, let stepCount = stepCount, let heartRate = heartRate, let distance = distance else {
-                        print("Failed to fetch some data")
-                        return
-                    }
-                    
-                    let activityTrimmed = 0.0 // Assume you have a way to determine activity_trimmed
-                    
-                    let stepsXDistance = stepCount * distance
-                    
-                    let inputData = applewatchregression_1Input(Age: Double(age), Gender: Double(biologicalSex), Height: height, Weight: weight, Applewatch_Steps_LE: stepCount, Applewatch_Heart_LE: heartRate, Applewatch_Distance_LE: distance)
-                    
-                    if let predictionOutput = try? self.model?.prediction(input: inputData) {
-                        print("Prediction Output: \(predictionOutput)")
-                    }
-                }
-            } catch {
-                print("Error fetching data or making prediction: \(error)")
+        healthStore.requestAuthorization(toShare: healthKitTypes, read: healthKitTypes) { (success, error) in
+            if success {
+                self.fetchHealthDataAndMakePrediction()
+            } else if let error = error {
+                print("Error requesting health data access: \(error)")
             }
         }
     }
-    
-    private func getMostRecentSample(for type: HKQuantityTypeIdentifier, completion: @escaping (Double?) -> Void) {
-        let sampleType = HKQuantityType.quantityType(forIdentifier: type)!
-        let mostRecentPredicate = HKQuery.predicateForSamples(withStart: Date.distantPast, end: Date(), options: .strictEndDate)
+
+    func fetchHealthDataAndMakePrediction() {
+        do {
+            let ageComponents = try healthStore.dateOfBirthComponents()
+            let biologicalSex = try healthStore.biologicalSex().biologicalSex.rawValue
+
+            let age = Calendar.current.dateComponents([.year], from: ageComponents.date!, to: Date()).year!
+            
+            var height: Double?
+            var weight: Double?
+            var stepCount: Double?
+            var heartRate: Double?
+            var distance: Double?
+            
+            let group = DispatchGroup()
+
+            group.enter()
+            self.getMostRecentSample(for: .height) { result in
+                height = result
+                group.leave()
+            }
+
+            group.enter()
+            self.getMostRecentSample(for: .bodyMass) { result in
+                weight = result
+                group.leave()
+            }
+            
+            group.enter()
+            self.getMostRecentSample(for: .stepCount) { result in
+                stepCount = result
+                group.leave()
+            }
+            
+            group.enter()
+            self.getMostRecentSample(for: .heartRate) { result in
+                heartRate = result
+                group.leave()
+            }
+            
+            group.enter()
+            self.getMostRecentSample(for: .distanceWalkingRunning) { result in
+                distance = result
+                group.leave()
+            }
+            
+            group.notify(queue: .main) {
+                guard let height = height, let weight = weight, let stepCount = stepCount, let heartRate = heartRate, let distance = distance else {
+                    print("Failed to fetch some data")
+                    return
+                }
+                
+                let stepsXDistance = stepCount * distance
+                
+                let inputData = applewatchregression_1Input(age: Double(age), gender: Double(biologicalSex), height: height, weight: weight, Applewatch_Steps_LE: stepCount, Applewatch_Heart_LE: heartRate, Applewatch_Distance_LE: distance, ApplewatchStepsXDistance_LE: stepsXDistance)
+                
+                if let predictionOutput = try? self.model?.prediction(input: inputData) {
+                    print("Prediction Output: \(predictionOutput)")
+                }
+            }
+        } catch {
+            print("Error fetching health data: \(error)")
+        }
+    }
+
+    private func getMostRecentSample(for sampleType: HKQuantityTypeIdentifier, completion: @escaping (Double?) -> Void) {
+        let sampleType = HKQuantityType.quantityType(forIdentifier: sampleType)!
+        
+        let predicate = HKQuery.predicateForSamples(withStart: Calendar.current.date(byAdding: .day, value: -1, to: Date()), end: Date(), options: .strictStartDate)
+        
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
-        let query = HKSampleQuery(sampleType: sampleType, predicate: mostRecentPredicate, limit: 1, sortDescriptors: [sortDescriptor]) { (query, samples, error) in
-            guard let samples = samples, let mostRecentSample = samples.first as? HKQuantitySample else {
-                print("Failed to fetch samples for \(type)")
+        
+        let query = HKSampleQuery(sampleType: sampleType, predicate: predicate, limit: 1, sortDescriptors: [sortDescriptor]) { (_, results, error) in
+            if let error = error {
+                print("Error fetching samples: \(error)")
                 completion(nil)
                 return
             }
-            let unit: HKUnit
-            switch type {
-            case .height:
-                unit = HKUnit.meter()
-            case .bodyMass:
-                unit = HKUnit.gramUnit(with: .kilo)
-            case .stepCount, .distanceWalkingRunning:
-                unit = HKUnit.count()
-            case .heartRate:
-                unit = HKUnit.count().unitDivided(by: HKUnit.minute())
-            default:
-                print("Unknown quantity type \(type)")
+            
+            guard let results = results, let mostRecentSample = results.first as? HKQuantitySample else {
+                completion(nil)
                 return
             }
-            let value = mostRecentSample.quantity.doubleValue(for: unit)
+            
+            let value = mostRecentSample.quantity.doubleValue(for: self.unitForType(sampleType))
             completion(value)
         }
+        
         healthStore.execute(query)
+    }
+
+    private func unitForType(_ type: HKQuantityType) -> HKUnit {
+        switch type {
+        case HKObjectType.quantityType(forIdentifier: .height)!:
+            return HKUnit.meter()
+        case HKObjectType.quantityType(forIdentifier: .bodyMass)!:
+            return HKUnit.gramUnit(with: .kilo) // correct usage for kilograms
+        case HKObjectType.quantityType(forIdentifier: .stepCount)!,
+             HKObjectType.quantityType(forIdentifier: .heartRate)!:
+            return HKUnit.count()
+        case HKObjectType.quantityType(forIdentifier: .distanceWalkingRunning)!:
+            return HKUnit.meter()
+        default:
+            fatalError("Unsupported type")
+        }
     }
 }
