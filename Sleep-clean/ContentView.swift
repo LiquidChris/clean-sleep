@@ -167,94 +167,86 @@ struct SidebarNavigation: View {
     
     @State private var selectedMenuItem: String? = "Pick A Screen!"
     var body: some View {
-        VStack {
-            NavigationView {
-                if selectedMenuItem == nil {
-                    VStack {
-                        NavigationLink(destination: SleepScreen(), tag: "sleep", selection: $selectedMenuItem) {
-                            Button("Screen 1") {
-                                selectedMenuItem = "sleep"
-                            }
-                        }
-                        NavigationLink(destination: ExerciseScreen(), tag: "exercise", selection: $selectedMenuItem) {
-                            Button("Screen 2") {
-                                selectedMenuItem = "exercise"
-                            }
-                        }
-                        NavigationLink(destination: DietScreen(), tag: "diet", selection: $selectedMenuItem) {
-                            Button("Screen 3") {
-                                selectedMenuItem = "diet"
-                            }
-                        }
-                    }
-                    .padding()
-                } else {
-                    List {
-                        NavigationLink(destination: SleepScreen(), tag: "Sleep", selection: $selectedMenuItem) {
-                            Label("Sleep", systemImage: "powersleep")
-                        }
-                        NavigationLink(destination: ExerciseScreen(), tag: "Exercise", selection: $selectedMenuItem) {
-                            Label("Exercise", systemImage: "figure.run")
-                        }
-                        NavigationLink(destination: DietScreen(), tag: "Diet", selection: $selectedMenuItem) {
-                            Label("Diet", systemImage: "fork.knife")
-                        }
-                    }
-                    .listStyle(SidebarListStyle())
-                    .navigationTitle("Wellness Options")
-                    .multilineTextAlignment(.center)
-                    
-                    /*
-                     Text(selectedMenuItem ?? "Select an item")
-                     .frame(maxWidth: .infinity, maxHeight: .infinity) */
+        NavigationView {
+            List {
+                NavigationLink(destination: SleepScreen(title: "Recommendation"), tag: "Sleep", selection: $selectedMenuItem) {
+                    Label("Sleep", systemImage: "powersleep")
+                }
+                NavigationLink(destination: ExerciseScreen(title: "Recommendation"), tag: "Exercise", selection: $selectedMenuItem) {
+                    Label("Exercise", systemImage: "figure.run")
+                }
+                NavigationLink(destination: DietScreen(title: "Recommendation"), tag: "Diet", selection: $selectedMenuItem) {
+                    Label("Diet", systemImage: "fork.knife")
                 }
             }
+            .listStyle(SidebarListStyle())
+            .navigationTitle("Wellness Options")
+            .multilineTextAlignment(.center)
+            
+            /*
+             Text(selectedMenuItem ?? "Select an item")
+             .frame(maxWidth: .infinity, maxHeight: .infinity) */
         }
     }
 }
 
 struct SleepScreen: View {
+    let title: String
+    
     var body: some View{
-        ZStack{
-            LinearGradient(
-                gradient: Gradient(colors: [Color.black.opacity(0.7), Color.mint.opacity(0.7)]),
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                    .edgesIgnoringSafeArea(.all)
-            VStack{
-                Text("Recommendation 1")
-                    .padding()
-                
-                Text("Recommendation 2")
-                    .padding()
-            }
-        }
-        
-                
+        Text(title)
+            .font(Font.system(size: 26, weight: .bold))
+            .multilineTextAlignment(.center)
+            .frame(
+                maxWidth: .infinity,
+                maxHeight: .infinity)
+            .background(
+                LinearGradient(
+                    gradient: Gradient(colors: [Color.black.opacity(0.7), Color.mint.opacity(0.7)]),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing)
+                .edgesIgnoringSafeArea(.all))
     }
 }
 
 struct ExerciseScreen: View {
+    let title: String
+    
     var body: some View{
-        LinearGradient(
-            gradient: Gradient(colors: [Color.red.opacity(0.8), Color.orange.opacity(0.7)]),
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-                .edgesIgnoringSafeArea(.all)
-                
+        Text(title)
+            .font(Font.system(size: 26, weight: .bold))
+            .multilineTextAlignment(.center)
+            .frame(
+                maxWidth: .infinity,
+                maxHeight: .infinity)
+            .background(
+                LinearGradient(
+                    gradient: Gradient(colors: [Color.red.opacity(0.8), Color.orange.opacity(0.7)]),
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                        .edgesIgnoringSafeArea(.all)
+            )
     }
 }
 
 struct DietScreen: View {
+    let title: String
+    
     var body: some View{
-        LinearGradient(
-            gradient: Gradient(colors: [Color.yellow.opacity(0.7), Color.green.opacity(0.8)]),
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-                .edgesIgnoringSafeArea(.all)
+        Text(title)
+            .font(Font.system(size: 26, weight: .bold))
+            .multilineTextAlignment(.center)
+            .frame(
+                maxWidth: .infinity,
+                maxHeight: .infinity)
+            .background(
+                LinearGradient(
+                    gradient: Gradient(colors: [Color.yellow.opacity(0.7), Color.green.opacity(0.8)]),
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing)
+                        .edgesIgnoringSafeArea(.all))
+
     }
 }
     
@@ -266,7 +258,7 @@ struct ContentView_Previews: PreviewProvider {
 }
 struct SleepScreen_Previews: PreviewProvider {
     static var previews: some View {
-        SleepScreen()
+        SleepScreen(title: "")
     }
 }
 struct SidebarNavigation_Previews: PreviewProvider {

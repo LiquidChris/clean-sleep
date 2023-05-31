@@ -88,7 +88,6 @@
 		EB98D2082A1D169D008B8A5C /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				4FDD32FA2A1EAE4E00A1DD18 /* workingmlsleep 2.mlpackage */,
 				EB98D2052A1D1667008B8A5C /* data_for_weka_aw.csv */,
 				EB98D2092A1D16A6008B8A5C /* BetterRest.csv */,
 			);
