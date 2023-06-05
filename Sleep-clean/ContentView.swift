@@ -1,4 +1,5 @@
 import SwiftUI
+import CoreML
 
 struct Question: Identifiable {
     let id = UUID()
@@ -35,6 +36,8 @@ struct HomeView: View {
 }
 
 struct ContentView: View {
+    
+    
     @State private var questions: [Question] = [
         Question(text: "What's your name?"),
         Question(text: "How would you rate your sleep on a scale of 1-10?"),
@@ -48,6 +51,9 @@ struct ContentView: View {
     @State private var isQuestionnaireComplete = false
     @State private var isQuestionnaireStarted = false
     @State private var timeToNotSubmit = true
+    @State private var predictionOutput: Double?
+    @StateObject private var healthDataFetcher = HealthDataFetcher()
+    
     
     var currentQuestion: Question? {
         if currentQuestionIndex < questions.count {
@@ -67,6 +73,16 @@ struct ContentView: View {
                     QuestionPromptView(question: question, answer: $answers[question.id], onNextQuestion: moveNextQuestion)
                 } else {
                     SubmitView(isComplete: $isQuestionnaireComplete)
+                    if let <#identifier#> = predictionOutput == nil {
+                        healthDataFetcher.requestHealthDataAccess()
+                    }
+                    if let predictionOutput = healthDataFetcher.predictionOutput {
+                                    Text("Prediction Output: (predictionOutput)")
+                                } else {
+                                    Button("Fetch Health Data") {
+                                        healthDataFetcher.requestHealthDataAccess()
+                                    }
+                                }
                 }
             } else {
                 HomeView(isQuestionnaireStarted: $isQuestionnaireStarted)
@@ -211,22 +227,36 @@ struct SleepScreen: View {
 
 struct ExerciseScreen: View {
     let title: String
+    let temp = HealthDataFetcher()
     
     var body: some View{
-        Text(title)
-            .font(Font.system(size: 26, weight: .bold))
-            .multilineTextAlignment(.center)
-            .frame(
-                maxWidth: .infinity,
-                maxHeight: .infinity)
-            .background(
-                LinearGradient(
-                    gradient: Gradient(colors: [Color.red.opacity(0.8), Color.orange.opacity(0.7)]),
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                        .edgesIgnoringSafeArea(.all)
-            )
+        ZStack{
+            Text(title)
+                .font(Font.system(size: 26, weight: .bold))
+                .multilineTextAlignment(.center)
+                .frame(
+                    maxWidth: .infinity,
+                    maxHeight: .infinity)
+                .background(
+                    LinearGradient(
+                        gradient: Gradient(colors: [Color.red.opacity(0.8), Color.orange.opacity(0.7)]),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                            .edgesIgnoringSafeArea(.all)
+                )
+            Button(action: {
+                temp.requestHealthDataAccess()
+                        }) {
+                            Text("Request Health Data Access")
+                                .font(.headline)
+                                .padding()
+                                .background(Color.mint)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
+        }
+        
     }
 }
 

@@ -9,7 +9,8 @@ import Foundation
 import HealthKit
 import CoreML
 
-class HealthDataFetcher {
+class HealthDataFetcher : ObservableObject {
+    @Published var predictionOutput: Double?
     let healthStore = HKHealthStore()
     var model: applewatchregression_1?
 
@@ -102,7 +103,9 @@ class HealthDataFetcher {
                 let inputData = applewatchregression_1Input(age: Double(age), gender: Double(biologicalSex), height: height, weight: weight, Applewatch_Steps_LE: stepCount, Applewatch_Heart_LE: heartRate, Applewatch_Distance_LE: distance, ApplewatchStepsXDistance_LE: stepsXDistance)
                 
                 if let predictionOutput = try? self.model?.prediction(input: inputData) {
-                    print("Prediction Output: \(predictionOutput)")
+                    DispatchQueue.main.async {
+                        self.predictionOutput = predictionOutput.Applewatch_Calories_LE
+                    }
                 }
             }
         } catch {
