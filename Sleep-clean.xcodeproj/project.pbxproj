@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4FA68D462A270E9100237207 /* applewatchregression_1.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 4FA68D452A270E9100237207 /* applewatchregression_1.mlmodel */; };
+		4F12DA022A2E9B7700A3F6C3 /* applewatchregression 1.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 4F12DA012A2E9B7700A3F6C3 /* applewatchregression 1.mlmodel */; };
 		4FD56E652A27045D00A4AA9A /* collector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD56E642A27045D00A4AA9A /* collector.swift */; };
 		EBC7125A2A1BECB700CBF261 /* Sleep_cleanApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC712592A1BECB700CBF261 /* Sleep_cleanApp.swift */; };
 		EBC7125C2A1BECB700CBF261 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC7125B2A1BECB700CBF261 /* ContentView.swift */; };
@@ -37,7 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4FA68D452A270E9100237207 /* applewatchregression_1.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = applewatchregression_1.mlmodel; path = ../../../../Downloads/applewatchregression_1.mlmodel; sourceTree = "<group>"; };
+		4F12DA012A2E9B7700A3F6C3 /* applewatchregression 1.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = "applewatchregression 1.mlmodel"; path = "../../../../Desktop/applewatchregression 1.mlmodel"; sourceTree = "<group>"; };
 		4FD56E642A27045D00A4AA9A /* collector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = collector.swift; sourceTree = "<group>"; };
 		4FD56E6C2A270B5400A4AA9A /* archive (2) */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "archive (2)"; path = "../../../../Downloads/archive (2)"; sourceTree = "<group>"; };
 		EB98D2052A1D1667008B8A5C /* data_for_weka_aw.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = data_for_weka_aw.csv; sourceTree = "<group>"; };
@@ -124,7 +124,7 @@
 				EBC712832A1C406E00CBF261 /* ViewController.swift */,
 				4FD56E642A27045D00A4AA9A /* collector.swift */,
 				EBC712592A1BECB700CBF261 /* Sleep_cleanApp.swift */,
-				4FA68D452A270E9100237207 /* applewatchregression_1.mlmodel */,
+				4F12DA012A2E9B7700A3F6C3 /* applewatchregression 1.mlmodel */,
 				EBC7125B2A1BECB700CBF261 /* ContentView.swift */,
 				EBC7125D2A1BECB800CBF261 /* Assets.xcassets */,
 				4FD56E6C2A270B5400A4AA9A /* archive (2) */,
@@ -289,8 +289,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				EBC712842A1C406E00CBF261 /* ViewController.swift in Sources */,
+				4F12DA022A2E9B7700A3F6C3 /* applewatchregression 1.mlmodel in Sources */,
 				EBC7125C2A1BECB700CBF261 /* ContentView.swift in Sources */,
-				4FA68D462A270E9100237207 /* applewatchregression_1.mlmodel in Sources */,
 				4FD56E652A27045D00A4AA9A /* collector.swift in Sources */,
 				EBC7125A2A1BECB700CBF261 /* Sleep_cleanApp.swift in Sources */,
 			);
