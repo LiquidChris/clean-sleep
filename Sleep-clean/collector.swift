@@ -11,7 +11,7 @@ import CoreML
 
 class HealthDataFetcher {
     let healthStore = HKHealthStore()
-    var model: applewatchregression_1?
+    var model = applewatchregression_1()
 
     init() {
         if HKHealthStore.isHealthDataAvailable() {
@@ -101,7 +101,7 @@ class HealthDataFetcher {
                 
                 let inputData = applewatchregression_1Input(age: Double(age), gender: Double(biologicalSex), height: height, weight: weight, Applewatch_Steps_LE: stepCount, Applewatch_Heart_LE: heartRate, Applewatch_Distance_LE: distance, ApplewatchStepsXDistance_LE: stepsXDistance)
                 
-                if let predictionOutput = try? self.model?.prediction(input: inputData) {
+                if let predictionOutput = try? self.model.prediction(input: inputData) {
                     print("Prediction Output: \(predictionOutput)")
                 }
             }

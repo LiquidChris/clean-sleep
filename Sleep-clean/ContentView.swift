@@ -168,6 +168,7 @@ struct SidebarNavigation: View {
     @State private var selectedMenuItem: String? = "Pick A Screen!"
     var body: some View {
         NavigationView {
+            let sleepRecommendation
             List {
                 NavigationLink(destination: SleepScreen(title: "Recommendation"), tag: "Sleep", selection: $selectedMenuItem) {
                     Label("Sleep", systemImage: "powersleep")
