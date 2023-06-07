@@ -40,6 +40,7 @@
 		4F2FAF862A2E9C2E0056CD71 /* applewatchregression_1.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = applewatchregression_1.mlmodel; path = ../../../../Downloads/applewatchregression_1.mlmodel; sourceTree = "<group>"; };
 		4FD56E642A27045D00A4AA9A /* collector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = collector.swift; sourceTree = "<group>"; };
 		4FD56E6C2A270B5400A4AA9A /* archive (2) */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "archive (2)"; path = "../../../../Downloads/archive (2)"; sourceTree = "<group>"; };
+		EB2152142A30160A00A75A64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		EB98D2052A1D1667008B8A5C /* data_for_weka_aw.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = data_for_weka_aw.csv; sourceTree = "<group>"; };
 		EB98D2092A1D16A6008B8A5C /* BetterRest.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = BetterRest.csv; sourceTree = "<group>"; };
 		EBC712562A1BECB700CBF261 /* Sleep-clean.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sleep-clean.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -120,6 +121,7 @@
 		EBC712582A1BECB700CBF261 /* Sleep-clean */ = {
 			isa = PBXGroup;
 			children = (
+				EB2152142A30160A00A75A64 /* Info.plist */,
 				EB98D2082A1D169D008B8A5C /* Data */,
 				EBC712832A1C406E00CBF261 /* ViewController.swift */,
 				4FD56E642A27045D00A4AA9A /* collector.swift */,
@@ -448,11 +450,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Sleep-clean/Sleep-clean.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Sleep-clean/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Sleep-clean/Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Usage description for Step Count: This app requires access to your step count data for analyzing your activity levels.\n    Usage description for Date of Birth: This app needs access to your date of birth for personalized health recommendations.\n    Usage description for Biological Sex: Your biological sex information is required to provide accurate health insights.\n    Usage description for Height: Access to your height data is necessary for personalized health assessments.\n    Usage description for Body Mass: This app needs access to your body mass information to calculate BMI.\n    Usage description for Heart Rate: This app requires access to your heart rate data for monitoring your cardiovascular health.\n    Usage description for Distance Walking/Running: Your walking and running distance data is required for tracking your fitness progress.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = HKQuantityTypeIdentifierStepCount;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -476,11 +483,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Sleep-clean/Sleep-clean.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Sleep-clean/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Sleep-clean/Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Usage description for Step Count: This app requires access to your step count data for analyzing your activity levels.\n    Usage description for Date of Birth: This app needs access to your date of birth for personalized health recommendations.\n    Usage description for Biological Sex: Your biological sex information is required to provide accurate health insights.\n    Usage description for Height: Access to your height data is necessary for personalized health assessments.\n    Usage description for Body Mass: This app needs access to your body mass information to calculate BMI.\n    Usage description for Heart Rate: This app requires access to your heart rate data for monitoring your cardiovascular health.\n    Usage description for Distance Walking/Running: Your walking and running distance data is required for tracking your fitness progress.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = HKQuantityTypeIdentifierStepCount;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
