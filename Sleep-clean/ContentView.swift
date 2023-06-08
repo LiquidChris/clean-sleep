@@ -212,9 +212,51 @@ struct SidebarNavigation: View {
     }
 }
 
+func printHello(text: String){
+    print(text)
+}
+
 struct SleepScreen: View {
     let title: String
     
+    var body: some View{
+        ZStack() {
+            Text(title)
+                .font(Font.system(size: 26, weight: .bold))
+                .multilineTextAlignment(.center)
+                .frame(
+                    maxWidth: .infinity,
+                    maxHeight: .infinity)
+                .background(
+                    LinearGradient(
+                        gradient: Gradient(colors:
+                            [Color.black.opacity(0.7),
+                             Color.mint.opacity(0.7)]),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing)
+                    .edgesIgnoringSafeArea(.all))
+            Button(
+                "Get Recommendation",
+                action: {printHello(text: title)}
+            )
+            .frame(width: 300, height: 100)
+            .font(.title)
+            .foregroundColor(Color.white)
+            .background(
+                LinearGradient(
+                    gradient: Gradient(colors:
+                        [Color.mint.opacity(0.7),
+                         Color.black.opacity(0.7)]),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing)
+                .edgesIgnoringSafeArea(.all))
+            .cornerRadius(10)
+        }
+    }
+}
+
+struct SleepRecommendationScreen: View {
+    let title: String
     var body: some View{
         Text(title)
             .font(Font.system(size: 26, weight: .bold))
@@ -224,7 +266,9 @@ struct SleepScreen: View {
                 maxHeight: .infinity)
             .background(
                 LinearGradient(
-                    gradient: Gradient(colors: [Color.black.opacity(0.7), Color.mint.opacity(0.7)]),
+                    gradient: Gradient(colors:
+                        [Color.black.opacity(0.7),
+                         Color.mint.opacity(0.7)]),
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing)
                 .edgesIgnoringSafeArea(.all))
@@ -234,7 +278,6 @@ struct SleepScreen: View {
 struct ExerciseScreen: View {
     let title: String
     let temp = HealthDataFetcher()
-    
     var body: some View{
         ZStack{
             Text(title)
@@ -245,30 +288,34 @@ struct ExerciseScreen: View {
                     maxHeight: .infinity)
                 .background(
                     LinearGradient(
-                        gradient: Gradient(colors: [Color.red.opacity(0.8), Color.orange.opacity(0.7)]),
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            )
-                            .edgesIgnoringSafeArea(.all)
+                        gradient: Gradient(colors:
+                            [Color.red.opacity(0.8),
+                             Color.orange.opacity(0.7)]),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                    .edgesIgnoringSafeArea(.all)
                 )
-            Button(action: {
-                temp.requestHealthDataAccess()
-                        }) {
-                            Text("Request Health Data Access")
-                                .font(.headline)
-                                .padding()
-                                .background(Color.mint)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
-                        }
+            Button("Get Recommendation",
+                   action: {printHello(text: title)})
+            .frame(width: 300, height: 100)
+            .font(.title)
+            .foregroundColor(Color.white)
+            .background(
+                LinearGradient(
+                    gradient: Gradient(colors:
+                        [Color.orange.opacity(0.7),
+                         Color.red.opacity(0.7)]),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing)
+                .edgesIgnoringSafeArea(.all))
+            .cornerRadius(10)
         }
-        
     }
 }
 
-struct DietScreen: View {
+struct ExerciseRecommendationScreen: View {
     let title: String
-    
     var body: some View{
         Text(title)
             .font(Font.system(size: 26, weight: .bold))
@@ -278,25 +325,84 @@ struct DietScreen: View {
                 maxHeight: .infinity)
             .background(
                 LinearGradient(
-                    gradient: Gradient(colors: [Color.yellow.opacity(0.7), Color.green.opacity(0.8)]),
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing)
-                        .edgesIgnoringSafeArea(.all))
+                    gradient: Gradient(colors:
+                        [Color.red.opacity(0.8),
+                         Color.orange.opacity(0.7)]),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing)
+                .edgesIgnoringSafeArea(.all))
+    }
+}
+
+struct DietScreen: View {
+    let title: String
+    var body: some View{
+        ZStack{
+            Text(title)
+                .font(Font.system(size: 26, weight: .bold))
+                .multilineTextAlignment(.center)
+                .frame(
+                    maxWidth: .infinity,
+                    maxHeight: .infinity)
+                .background(
+                    LinearGradient(
+                        gradient: Gradient(colors:
+                            [Color.yellow.opacity(0.7),
+                             Color.green.opacity(0.8)]),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing)
+                    .edgesIgnoringSafeArea(.all))
+            Button("Get Recommendation",
+                   action: {printHello(text: title)})
+            .frame(width: 300, height: 100)
+            .font(.title)
+            .foregroundColor(Color.white)
+            .background(
+                LinearGradient(
+                    gradient: Gradient(colors:
+                        [Color.green.opacity(0.7),
+                         Color.yellow.opacity(0.7)]),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing)
+                .edgesIgnoringSafeArea(.all))
+            .cornerRadius(10)
+        }
+    }
+}
+
+struct DietRecommendationScreen: View {
+    let title: String
+    var body: some View{
+        Text(title)
+            .font(Font.system(size: 26, weight: .bold))
+            .multilineTextAlignment(.center)
+            .frame(
+                maxWidth: .infinity,
+                maxHeight: .infinity)
+            .background(
+                LinearGradient(
+                    gradient: Gradient(colors:
+                        [Color.yellow.opacity(0.7),
+                        Color.green.opacity(0.8)]),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing)
+                .edgesIgnoringSafeArea(.all))
 
     }
 }
     
-
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
 }
+
 struct SleepScreen_Previews: PreviewProvider {
     static var previews: some View {
         SleepScreen(title: "")
     }
 }
+
 struct SidebarNavigation_Previews: PreviewProvider {
     static var previews: some View {
         SidebarNavigation()
