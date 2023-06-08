@@ -64,47 +64,64 @@ class HealthDataFetcher : ObservableObject {
 
             group.enter()
             self.getMostRecentSample(for: .height) { result in
-                height = result
+                if let result = result {
+                    height = result
+                } else {
+                    print("Failed to fetch height data")
+                }
                 group.leave()
             }
 
             group.enter()
             self.getMostRecentSample(for: .bodyMass) { result in
-                weight = result
+                if let result = result {
+                    weight = result
+                } else {
+                    print("Failed to fetch weight data")
+                }
                 group.leave()
             }
             
             group.enter()
             self.getMostRecentSample(for: .stepCount) { result in
-                stepCount = result
+                if let result = result {
+                    stepCount = result
+                } else {
+                    print("Failed to fetch step count data")
+                }
                 group.leave()
             }
             
             group.enter()
             self.getMostRecentSample(for: .heartRate) { result in
-                heartRate = result
+                if let result = result {
+                    heartRate = result
+                } else {
+                    print("Failed to fetch heart rate data")
+                }
                 group.leave()
             }
             
             group.enter()
             self.getMostRecentSample(for: .distanceWalkingRunning) { result in
-                distance = result
+                if let result = result {
+                    distance = result
+                } else {
+                    print("Failed to fetch distance data")
+                }
                 group.leave()
             }
             
             group.notify(queue: .main) {
-                guard let height = height, let weight = weight, let stepCount = stepCount, let heartRate = heartRate, let distance = distance else {
-                    print("Failed to fetch some data")
-                    return
-                }
-                
-                let stepsXDistance = stepCount * distance
-                
-                let inputData = applewatchregression_1Input(age: Double(age), gender: Double(biologicalSex), height: height, weight: weight, Applewatch_Steps_LE: stepCount, Applewatch_Heart_LE: heartRate, Applewatch_Distance_LE: distance, ApplewatchStepsXDistance_LE: stepsXDistance)
-                
-                if let predictionOutput = try? self.model?.prediction(input: inputData) {
-                    DispatchQueue.main.async {
-                        self.predictionOutput = predictionOutput.Applewatch_Calories_LE
+                if let height = height, let weight = weight, let stepCount = stepCount, let heartRate = heartRate, let distance = distance {
+                    let stepsXDistance = stepCount * distance
+                    
+                    let inputData = applewatchregression_1Input(age: Double(age), gender: Double(biologicalSex), height: height, weight: weight, Applewatch_Steps_LE: stepCount, Applewatch_Heart_LE: heartRate, Applewatch_Distance_LE: distance, ApplewatchStepsXDistance_LE: stepsXDistance)
+                    
+                    if let predictionOutput = try? self.model?.prediction(input: inputData) {
+                        DispatchQueue.main.async {
+                            self.predictionOutput = predictionOutput.Applewatch_Calories_LE
+                        }
                     }
                 }
             }
@@ -113,21 +130,24 @@ class HealthDataFetcher : ObservableObject {
         }
     }
 
+
     private func getMostRecentSample(for sampleType: HKQuantityTypeIdentifier, completion: @escaping (Double?) -> Void) {
         let sampleType = HKQuantityType.quantityType(forIdentifier: sampleType)!
         
-        let predicate = HKQuery.predicateForSamples(withStart: Calendar.current.date(byAdding: .day, value: -1, to: Date()), end: Date(), options: .strictStartDate)
+        // Remove the predicate that limits the date range
+        let predicate: NSPredicate? = nil
         
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
         
         let query = HKSampleQuery(sampleType: sampleType, predicate: predicate, limit: 1, sortDescriptors: [sortDescriptor]) { (_, results, error) in
             if let error = error {
-                print("Error fetching samples: \(error)")
+                print("Error fetching samples for \(sampleType): \(error)")
                 completion(nil)
                 return
             }
             
             guard let results = results, let mostRecentSample = results.first as? HKQuantitySample else {
+                print("No data available for \(sampleType)")
                 completion(nil)
                 return
             }
@@ -145,13 +165,15 @@ class HealthDataFetcher : ObservableObject {
             return HKUnit.meter()
         case HKObjectType.quantityType(forIdentifier: .bodyMass)!:
             return HKUnit.gramUnit(with: .kilo) // correct usage for kilograms
-        case HKObjectType.quantityType(forIdentifier: .stepCount)!,
-             HKObjectType.quantityType(forIdentifier: .heartRate)!:
+        case HKObjectType.quantityType(forIdentifier: .stepCount)!:
             return HKUnit.count()
+        case HKObjectType.quantityType(forIdentifier: .heartRate)!:
+            return HKUnit.count().unitDivided(by: HKUnit.minute()) // correct usage for heart rate in beats per minute
         case HKObjectType.quantityType(forIdentifier: .distanceWalkingRunning)!:
             return HKUnit.meter()
         default:
             fatalError("Unsupported type")
         }
     }
+
 }
