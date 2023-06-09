@@ -72,19 +72,11 @@ struct ContentView: View {
     
     
     var body: some View {
-        let question = questions[currentQuestionIndex]
-        if isQuestionnaireComplete {
-            SidebarNavigation()
-        } else if isQuestionnaireStarted {
-            if currentQuestionIndex < questions.count && timeToNotSubmit {
-                QuestionPromptView(question: question, answer: $answers[question.id], onNextQuestion: moveNextQuestion)
             } else {
-                SubmitView(isComplete: $isQuestionnaireComplete)
+                HomeView(isQuestionnaireStarted: $isQuestionnaireStarted)
             }
-        } else {
-            HomeView(isQuestionnaireStarted: $isQuestionnaireStarted)
         }
-    }
+    
     func moveNextQuestion() {
         guard let question = currentQuestion, let answer = answers[question.id], !answer.isEmpty else {
             return
@@ -269,8 +261,6 @@ struct SleepRecommendationScreen: View {
 
 struct ExerciseScreen: View {
     let title: String
-    @StateObject var healthDataFetcher = HealthDataFetcher()
-    @State private var showRecommendation = false
     let temp = HealthDataFetcher()
     @State private var isActive: Bool = false
     
@@ -294,6 +284,7 @@ struct ExerciseScreen: View {
                     .edgesIgnoringSafeArea(.all)
                 )
             Button("Get Recommendation",
+<<<<<<< HEAD
                                action: {
                                 healthDataFetcher.requestHealthDataAccess()
                                 showRecommendation = true
@@ -367,13 +358,44 @@ struct ExerciseRecommendationScreen: View {
 >>>>>>> eac8155a9ffb7ed6f325f025dd00fa08d58d9117
                 }
             }
+=======
+                   action: {printHello(text: title)})
+            .frame(width: 300, height: 100)
+            .font(.title)
+            .foregroundColor(Color.white)
+            .background(
+                LinearGradient(
+                    gradient: Gradient(colors:
+                        [Color.orange.opacity(0.7),
+                         Color.red.opacity(0.7)]),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing)
+                .edgesIgnoringSafeArea(.all))
+            .cornerRadius(10)
+>>>>>>> parent of 8349d8a (s)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(LinearGradient(gradient: Gradient(colors: [Color.red.opacity(0.8), Color.orange.opacity(0.7)]), startPoint: .topLeading, endPoint: .bottomTrailing)
-        .edgesIgnoringSafeArea(.all))
     }
 }
 
+struct ExerciseRecommendationScreen: View {
+    let title: String
+    var body: some View{
+        Text(title)
+            .font(Font.system(size: 26, weight: .bold))
+            .multilineTextAlignment(.center)
+            .frame(
+                maxWidth: .infinity,
+                maxHeight: .infinity)
+            .background(
+                LinearGradient(
+                    gradient: Gradient(colors:
+                        [Color.red.opacity(0.8),
+                         Color.orange.opacity(0.7)]),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing)
+                .edgesIgnoringSafeArea(.all))
+    }
+}
 
 struct DietScreen: View {
     let title: String
