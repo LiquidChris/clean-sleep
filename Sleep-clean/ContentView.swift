@@ -140,31 +140,30 @@ struct QuestionPromptView: View{
     let question: Question
     @Binding var answer: String?
     let onNextQuestion: () -> Void
-        
-        var body: some View {
-            VStack {
-                Text(question.text)
-                    .font(.title)
-                    .padding()
-                    
-                TextField("Answer", text: Binding(
-                    get: { answer ?? "" },
-                    set: { answer = $0 }
-                ))
+    var body: some View {
+        VStack {
+            Text(question.text)
+                .font(.title)
                 .padding()
-                    
-                Button(action: onNextQuestion) {
-                    Text("Continue")
-                        .font(.headline)
-                        .padding()
-                        .background(Color.mint)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                        .multilineTextAlignment(.center)
-                }
+                
+            TextField("Answer", text: Binding(
+                get: { answer ?? "" },
+                set: { answer = $0 }
+            ))
+            .padding()
+                
+            Button(action: onNextQuestion) {
+                Text("Continue")
+                    .font(.headline)
+                    .padding()
+                    .background(Color.mint)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                    .multilineTextAlignment(.center)
             }
         }
     }
+}
 
 struct AnswerView: View{
     let question: Question
@@ -183,31 +182,27 @@ struct AnswerView: View{
 }
 
 struct SidebarNavigation: View {
-    enum NavigationItem {
-        case SleepScreen, ExerciseScreen, DietScreen
-    }
-    
-    @State private var selectedMenuItem: String? = "Pick A Screen!"
+    @State var selectedMenuItem: String? = nil
     var body: some View {
-        NavigationView {
-            List {
-                NavigationLink(destination: SleepScreen(title: "Recommendation"), tag: "Sleep", selection: $selectedMenuItem) {
-                    Label("Sleep", systemImage: "powersleep")
+          NavigationView {
+                List {
+//                    NavigationLink(isActive: $isShowingDetailView, destination: SleepRecommendationScreen(title: ""), tag: "Sleep", selection: $selectedMenuItem) {
+//                        Label("Sleep", systemImage: "powersleep")
+//                    }
+                    NavigationLink(destination: SleepScreen(title: "Recommendation"), tag: "Sleep", selection: $selectedMenuItem) {
+                        Label("Sleep", systemImage: "powersleep")
+                    }
+                    NavigationLink(destination: ExerciseScreen(title: "Recommendation"), tag: "Exercise", selection: $selectedMenuItem) {
+                        Label("Exercise", systemImage: "figure.run")
+                    }
+                    NavigationLink(destination: DietScreen(title: "Implementation Coming Soon"), tag: "Diet", selection: $selectedMenuItem) {
+                        Label("Diet", systemImage: "fork.knife")
+                    }
+                    
                 }
-                NavigationLink(destination: ExerciseScreen(title: "Recommendation"), tag: "Exercise", selection: $selectedMenuItem) {
-                    Label("Exercise", systemImage: "figure.run")
-                }
-                NavigationLink(destination: DietScreen(title: "Recommendation"), tag: "Diet", selection: $selectedMenuItem) {
-                    Label("Diet", systemImage: "fork.knife")
-                }
-            }
-            .listStyle(SidebarListStyle())
-            .navigationTitle("Wellness Options")
-            .multilineTextAlignment(.center)
-            
-            /*
-             Text(selectedMenuItem ?? "Select an item")
-             .frame(maxWidth: .infinity, maxHeight: .infinity) */
+                .listStyle(SidebarListStyle())
+                .navigationTitle("Wellness Options")
+                .multilineTextAlignment(.center)
         }
     }
 }
@@ -218,39 +213,46 @@ func printHello(text: String){
 
 struct SleepScreen: View {
     let title: String
+    @State private var isActive: Bool = false
     
     var body: some View{
-        ZStack() {
-            Text(title)
-                .font(Font.system(size: 26, weight: .bold))
-                .multilineTextAlignment(.center)
-                .frame(
-                    maxWidth: .infinity,
-                    maxHeight: .infinity)
+        NavigationView{
+            VStack{
+                ZStack() {
+                    Text("")
+                        .font(Font.system(size: 26, weight: .bold))
+                        .multilineTextAlignment(.center)
+                        .frame(
+                            maxWidth: .infinity,
+                            maxHeight: .infinity)
+                        .background(
+                            LinearGradient(
+                                gradient: Gradient(colors:
+                                    [Color.black.opacity(0.7),
+                                     Color.mint.opacity(0.7)]),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing)
+                            .edgesIgnoringSafeArea(.all))
+                    Button("Tap me for a recommendation"){
+                        isActive = true
+                    }
+                .frame(width: 300, height: 100)
+                .font(.title)
+                .foregroundColor(Color.white)
                 .background(
                     LinearGradient(
                         gradient: Gradient(colors:
-                            [Color.black.opacity(0.7),
-                             Color.mint.opacity(0.7)]),
+                            [Color.mint.opacity(0.7),
+                             Color.black.opacity(0.7)]),
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing)
                     .edgesIgnoringSafeArea(.all))
-            Button(
-                "Get Recommendation",
-                action: {printHello(text: title)}
-            )
-            .frame(width: 300, height: 100)
-            .font(.title)
-            .foregroundColor(Color.white)
-            .background(
-                LinearGradient(
-                    gradient: Gradient(colors:
-                        [Color.mint.opacity(0.7),
-                         Color.black.opacity(0.7)]),
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing)
-                .edgesIgnoringSafeArea(.all))
-            .cornerRadius(10)
+                .cornerRadius(10)
+                }
+                NavigationLink(destination: SleepRecommendationScreen(title: title), isActive: $isActive) {
+                    EmptyView()
+                }
+            }
         }
     }
 }
@@ -278,38 +280,46 @@ struct SleepRecommendationScreen: View {
 struct ExerciseScreen: View {
     let title: String
     let temp = HealthDataFetcher()
+    @State private var isActive: Bool = false
+    
     var body: some View{
-        ZStack{
-            Text(title)
-                .font(Font.system(size: 26, weight: .bold))
-                .multilineTextAlignment(.center)
-                .frame(
-                    maxWidth: .infinity,
-                    maxHeight: .infinity)
-                .background(
-                    LinearGradient(
-                        gradient: Gradient(colors:
-                            [Color.red.opacity(0.8),
-                             Color.orange.opacity(0.7)]),
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                    .edgesIgnoringSafeArea(.all)
-                )
-            Button("Get Recommendation",
-                   action: {printHello(text: title)})
-            .frame(width: 300, height: 100)
-            .font(.title)
-            .foregroundColor(Color.white)
-            .background(
-                LinearGradient(
-                    gradient: Gradient(colors:
-                        [Color.orange.opacity(0.7),
-                         Color.red.opacity(0.7)]),
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing)
-                .edgesIgnoringSafeArea(.all))
-            .cornerRadius(10)
+        NavigationView{
+            VStack{
+                ZStack{
+                    Text("")
+                        .font(Font.system(size: 26, weight: .bold))
+                        .multilineTextAlignment(.center)
+                        .frame(
+                            maxWidth: .infinity,
+                            maxHeight: .infinity)
+                        .background(
+                            LinearGradient(
+                                gradient: Gradient(colors:
+                                                    [Color.red.opacity(0.8),
+                                                     Color.orange.opacity(0.7)]),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing)
+                            .edgesIgnoringSafeArea(.all))
+                    Button("Tap me for a recommendation"){
+                        isActive = true
+                    }
+                    .frame(width: 300, height: 100)
+                    .font(.title)
+                    .foregroundColor(Color.white)
+                    .background(
+                        LinearGradient(
+                            gradient: Gradient(colors:
+                                                [Color.orange.opacity(0.7),
+                                                 Color.red.opacity(0.7)]),
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing)
+                        .edgesIgnoringSafeArea(.all))
+                    .cornerRadius(10)
+                }
+                NavigationLink(destination: ExerciseRecommendationScreen(title: title), isActive: $isActive) {
+                    EmptyView()
+                }
+            }
         }
     }
 }
@@ -337,42 +347,6 @@ struct ExerciseRecommendationScreen: View {
 struct DietScreen: View {
     let title: String
     var body: some View{
-        ZStack{
-            Text(title)
-                .font(Font.system(size: 26, weight: .bold))
-                .multilineTextAlignment(.center)
-                .frame(
-                    maxWidth: .infinity,
-                    maxHeight: .infinity)
-                .background(
-                    LinearGradient(
-                        gradient: Gradient(colors:
-                            [Color.yellow.opacity(0.7),
-                             Color.green.opacity(0.8)]),
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing)
-                    .edgesIgnoringSafeArea(.all))
-            Button("Get Recommendation",
-                   action: {printHello(text: title)})
-            .frame(width: 300, height: 100)
-            .font(.title)
-            .foregroundColor(Color.white)
-            .background(
-                LinearGradient(
-                    gradient: Gradient(colors:
-                        [Color.green.opacity(0.7),
-                         Color.yellow.opacity(0.7)]),
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing)
-                .edgesIgnoringSafeArea(.all))
-            .cornerRadius(10)
-        }
-    }
-}
-
-struct DietRecommendationScreen: View {
-    let title: String
-    var body: some View{
         Text(title)
             .font(Font.system(size: 26, weight: .bold))
             .multilineTextAlignment(.center)
@@ -383,13 +357,33 @@ struct DietRecommendationScreen: View {
                 LinearGradient(
                     gradient: Gradient(colors:
                         [Color.yellow.opacity(0.7),
-                        Color.green.opacity(0.8)]),
+                         Color.green.opacity(0.8)]),
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing)
                 .edgesIgnoringSafeArea(.all))
-
     }
 }
+
+//struct DietRecommendationScreen: View {
+//    let title: String
+//    var body: some View{
+//        Text(title)
+//            .font(Font.system(size: 26, weight: .bold))
+//            .multilineTextAlignment(.center)
+//            .frame(
+//                maxWidth: .infinity,
+//                maxHeight: .infinity)
+//            .background(
+//                LinearGradient(
+//                    gradient: Gradient(colors:
+//                        [Color.yellow.opacity(0.7),
+//                        Color.green.opacity(0.8)]),
+//                    startPoint: .topLeading,
+//                    endPoint: .bottomTrailing)
+//                .edgesIgnoringSafeArea(.all))
+//
+//    }
+//}
     
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
