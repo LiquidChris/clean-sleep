@@ -72,28 +72,19 @@ struct ContentView: View {
     
     
     var body: some View {
-            let question = questions[currentQuestionIndex]
-            if isQuestionnaireComplete {
-                SidebarNavigation()
-            } else if isQuestionnaireStarted {
-                if currentQuestionIndex < questions.count && timeToNotSubmit{
-                    QuestionPromptView(question: question, answer: $answers[question.id], onNextQuestion: moveNextQuestion)
-                } else {
-                    VStack {
-                        SubmitView(isComplete: $isQuestionnaireComplete)
-                        if healthDataFetcher.predictionOutput == nil {
-                            Button("Fetch Health Data") {
-                                healthDataFetcher.requestHealthDataAccess()
-                            }
-                        } else if let predictionOutput = healthDataFetcher.predictionOutput {
-                            Text("Prediction Output: \(predictionOutput)")
-                        }
-                    }
-                }
+        let question = questions[currentQuestionIndex]
+        if isQuestionnaireComplete {
+            SidebarNavigation()
+        } else if isQuestionnaireStarted {
+            if currentQuestionIndex < questions.count && timeToNotSubmit {
+                QuestionPromptView(question: question, answer: $answers[question.id], onNextQuestion: moveNextQuestion)
             } else {
-                HomeView(isQuestionnaireStarted: $isQuestionnaireStarted)
+                SubmitView(isComplete: $isQuestionnaireComplete)
             }
+        } else {
+            HomeView(isQuestionnaireStarted: $isQuestionnaireStarted)
         }
+    }
     
     func moveNextQuestion() {
         guard let question = currentQuestion, let answer = answers[question.id], !answer.isEmpty else {
