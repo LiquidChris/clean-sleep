@@ -72,29 +72,19 @@ struct ContentView: View {
     
     
     var body: some View {
-            let question = questions[currentQuestionIndex]
-            if isQuestionnaireComplete {
-                SidebarNavigation()
-            } else if isQuestionnaireStarted {
-                if currentQuestionIndex < questions.count && timeToNotSubmit{
-                    QuestionPromptView(question: question, answer: $answers[question.id], onNextQuestion: moveNextQuestion)
-                } else {
-                    VStack {
-                        SubmitView(isComplete: $isQuestionnaireComplete)
-                        if healthDataFetcher.predictionOutput == nil {
-                            Button("Fetch Health Data") {
-                                healthDataFetcher.requestHealthDataAccess()
-                            }
-                        } else if let predictionOutput = healthDataFetcher.predictionOutput {
-                            Text("Prediction Output: \(predictionOutput)")
-                        }
-                    }
-                }
+        let question = questions[currentQuestionIndex]
+        if isQuestionnaireComplete {
+            SidebarNavigation()
+        } else if isQuestionnaireStarted {
+            if currentQuestionIndex < questions.count && timeToNotSubmit {
+                QuestionPromptView(question: question, answer: $answers[question.id], onNextQuestion: moveNextQuestion)
             } else {
-                HomeView(isQuestionnaireStarted: $isQuestionnaireStarted)
+                SubmitView(isComplete: $isQuestionnaireComplete)
             }
+        } else {
+            HomeView(isQuestionnaireStarted: $isQuestionnaireStarted)
         }
-    
+    }
     func moveNextQuestion() {
         guard let question = currentQuestion, let answer = answers[question.id], !answer.isEmpty else {
             return
@@ -277,6 +267,8 @@ struct SleepRecommendationScreen: View {
 
 struct ExerciseScreen: View {
     let title: String
+    @StateObject var healthDataFetcher = HealthDataFetcher()
+    @State private var showRecommendation = false
     let temp = HealthDataFetcher()
     var body: some View{
         ZStack{
@@ -297,42 +289,49 @@ struct ExerciseScreen: View {
                     .edgesIgnoringSafeArea(.all)
                 )
             Button("Get Recommendation",
-                   action: {printHello(text: title)})
-            .frame(width: 300, height: 100)
-            .font(.title)
-            .foregroundColor(Color.white)
-            .background(
-                LinearGradient(
-                    gradient: Gradient(colors:
-                        [Color.orange.opacity(0.7),
-                         Color.red.opacity(0.7)]),
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing)
-                .edgesIgnoringSafeArea(.all))
-            .cornerRadius(10)
+                               action: {
+                                healthDataFetcher.requestHealthDataAccess()
+                                showRecommendation = true
+                               })
+                        .frame(width: 300, height: 100)
+                        .font(.title)
+                        .foregroundColor(Color.white)
+                        .background(
+                            LinearGradient(
+                                gradient: Gradient(colors:
+                                    [Color.orange.opacity(0.7),
+                                     Color.red.opacity(0.7)]),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing)
+                            .edgesIgnoringSafeArea(.all))
+                        .cornerRadius(10)
+                        .sheet(isPresented: $showRecommendation) {
+                            ExerciseRecommendationScreen(healthDataFetcher: healthDataFetcher)
+                        }
+                    }
+                }
+            }
+struct ExerciseRecommendationScreen: View {
+    @ObservedObject var healthDataFetcher: HealthDataFetcher
+
+    var body: some View {
+        VStack {
+            Text("Recommendations")
+                .font(Font.system(size: 26, weight: .bold))
+                .multilineTextAlignment(.center)
+            if let predictionOutput = healthDataFetcher.predictionOutput {
+                Text("Prediction Output: \(predictionOutput)")
+                if predictionOutput < 10 {
+                    Text("We reccomend you exercise 30 minutes a day")
+                }
+            }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(LinearGradient(gradient: Gradient(colors: [Color.red.opacity(0.8), Color.orange.opacity(0.7)]), startPoint: .topLeading, endPoint: .bottomTrailing)
+        .edgesIgnoringSafeArea(.all))
     }
 }
 
-struct ExerciseRecommendationScreen: View {
-    let title: String
-    var body: some View{
-        Text(title)
-            .font(Font.system(size: 26, weight: .bold))
-            .multilineTextAlignment(.center)
-            .frame(
-                maxWidth: .infinity,
-                maxHeight: .infinity)
-            .background(
-                LinearGradient(
-                    gradient: Gradient(colors:
-                        [Color.red.opacity(0.8),
-                         Color.orange.opacity(0.7)]),
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing)
-                .edgesIgnoringSafeArea(.all))
-    }
-}
 
 struct DietScreen: View {
     let title: String
