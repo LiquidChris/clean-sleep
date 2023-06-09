@@ -303,6 +303,7 @@ struct ExerciseScreen: View {
                 )
             Button("Get Recommendation",
 <<<<<<< HEAD
+<<<<<<< HEAD
                                action: {
                                 healthDataFetcher.requestHealthDataAccess()
                                 showRecommendation = true
@@ -377,6 +378,64 @@ struct ExerciseRecommendationScreen: View {
                 }
             }
 =======
+=======
+                   action: {printHello(text: title)})
+            .frame(width: 300, height: 100)
+            .font(.title)
+            .foregroundColor(Color.white)
+            .background(
+                LinearGradient(
+                    gradient: Gradient(colors:
+                        [Color.orange.opacity(0.7),
+                         Color.red.opacity(0.7)]),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing)
+                .edgesIgnoringSafeArea(.all))
+            .cornerRadius(10)
+        }
+    }
+}
+
+struct ExerciseRecommendationScreen: View {
+    let title: String
+    var body: some View{
+        Text(title)
+            .font(Font.system(size: 26, weight: .bold))
+            .multilineTextAlignment(.center)
+            .frame(
+                maxWidth: .infinity,
+                maxHeight: .infinity)
+            .background(
+                LinearGradient(
+                    gradient: Gradient(colors:
+                        [Color.red.opacity(0.8),
+                         Color.orange.opacity(0.7)]),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing)
+                .edgesIgnoringSafeArea(.all))
+    }
+}
+
+struct DietScreen: View {
+    let title: String
+    var body: some View{
+        ZStack{
+            Text(title)
+                .font(Font.system(size: 26, weight: .bold))
+                .multilineTextAlignment(.center)
+                .frame(
+                    maxWidth: .infinity,
+                    maxHeight: .infinity)
+                .background(
+                    LinearGradient(
+                        gradient: Gradient(colors:
+                            [Color.yellow.opacity(0.7),
+                             Color.green.opacity(0.8)]),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing)
+                    .edgesIgnoringSafeArea(.all))
+            Button("Get Recommendation",
+>>>>>>> parent of 8349d8a (s)
                    action: {printHello(text: title)})
             .frame(width: 300, height: 100)
             .font(.title)
