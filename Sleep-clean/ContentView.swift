@@ -389,6 +389,9 @@ struct ExerciseRecommendationScreen: View {
                 if predictionOutput < 10 {
                     Text("Exercise 30 minutes a day")
                 }
+                else {
+                    Text("Do 3 sets of 5 reps using 75% of the maximum weight you can for: Squats, Deadlift, and Benchpress. Rest 2-3 minutes between sets.")
+                }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
