@@ -309,9 +309,21 @@ struct SleepRecommendationScreen: View {
                 .font(Font.system(size: 26, weight: .bold))
                 .multilineTextAlignment(.center)
             
-//            if let sleepPrediction = sleepPrediction {
-//                Text("Sleep Prediction: \(sleepPrediction)")
-//            }
+            if (prediction < 1){
+                
+            }
+            else if (prediction < 3){
+                Text("Set a time to go to bed and wake up and stick to it for the next week.\n Avoid electronic screens for 30 minutes prior to sleep.\n Avoid napping throughout the day.")
+            }
+            else if (prediction < 6){
+                Text("Try going to sleep 30 minutes earlier and waking up 30 minutes earlier. Set alarms and schedule your sleep to get 7 hours a day.")
+            }
+            else if (prediction < 9) {
+                Text("Listen to slow, relaxing music while lying down above blanket before bed. Make sure your sleep posture is not crooked or bent in any way.")
+            }
+            else {
+                Text("Your current sleep habits are amazing! Make sure to stay hydrated throughout the day.")
+            }
         }
         .frame(
             maxWidth: .infinity,
