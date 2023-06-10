@@ -1,12 +1,10 @@
 import Foundation
 import SwiftUI
 import CoreML
-
 struct Question: Identifiable {
     let id = UUID()
     let text: String
 }
-
 struct HomeView: View {
     @Binding var isQuestionnaireStarted: Bool
     
@@ -31,9 +29,7 @@ struct HomeView: View {
         }
     }
 }
-
 public var sleepQuality = -1.0
-
 struct ContentView: View {
     @State private var questions: [Question] = [
         Question(text: "What's your gender? (0 for Male, 1 for Female)"),
@@ -62,7 +58,6 @@ struct ContentView: View {
             self._answers = State(initialValue: convertToUUIDKeys(dictionary: storedAnswers))
         }
     }
-
     private func convertToUUIDKeys(dictionary: [String: String]) -> [UUID: String] {
         var convertedDictionary: [UUID: String] = [:]
         for (key, value) in dictionary {
@@ -162,7 +157,6 @@ struct ContentView: View {
         }
     }
 }
-
 struct SubmitView: View {
     @Binding var isComplete: Bool
     let onCompletion: () -> Void
@@ -190,7 +184,6 @@ struct SubmitView: View {
         .padding()
     }
 }
-
 struct QuestionPromptView: View {
     let question: Question
     @Binding var answer: String?
@@ -221,7 +214,6 @@ struct QuestionPromptView: View {
         }
     }
 }
-
 struct SidebarNavigation: View {
     @Binding var selectedMenuItem: String?
     @Binding var answers: [UUID: String]
@@ -247,7 +239,6 @@ struct SidebarNavigation: View {
         }
     }
 }
-
 struct SleepScreen: View {
     let title: String
     @Binding var answers: [UUID: String]
@@ -298,7 +289,6 @@ struct SleepScreen: View {
         }
     }
 }
-
 struct SleepRecommendationScreen: View {
     let title: String
     let prediction: Double
@@ -339,7 +329,6 @@ struct SleepRecommendationScreen: View {
             .edgesIgnoringSafeArea(.all))
     }
 }
-
 struct ExerciseScreen: View {
     let title: String
     @StateObject var healthDataFetcher = HealthDataFetcher()
@@ -369,7 +358,6 @@ struct ExerciseScreen: View {
         }
     }
 }
-
 struct ExerciseRecommendationScreen: View {
     @ObservedObject var healthDataFetcher: HealthDataFetcher
     
@@ -476,7 +464,6 @@ struct DietScreen: View {
         return predictedRecipeID
     }
 }
-
 struct DietRecommendationScreen: View {
     let title: String
     let dietPrediction: Double?
@@ -503,25 +490,21 @@ struct DietRecommendationScreen: View {
         }
     }
 }
-
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
 }
-
 struct SleepScreen_Previews: PreviewProvider {
     static var previews: some View {
         SleepScreen(title: "Recommendation", answers: .constant([:]))
     }
 }
-
 struct SidebarNavigation_Previews: PreviewProvider {
     static var previews: some View {
         SidebarNavigation(selectedMenuItem: .constant(nil), answers: .constant([:]), sleepScreenAnswers: .constant([:]))
     }
 }
-
 //struct DietScreen: View {
 //    let title: String
 //    var body: some View {
@@ -550,7 +533,4 @@ struct SidebarNavigation_Previews: PreviewProvider {
      //       .edgesIgnoringSafeArea(.all))
    // }
 //}
-
-
-
 
