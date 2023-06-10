@@ -201,6 +201,7 @@ struct QuestionPromptView: View {
             Text(question.text)
                 .font(.title)
                 .padding()
+                .multilineTextAlignment(.center)
             
             TextField("Answer", text: Binding(
                 get: { answer ?? "" },
@@ -383,11 +384,7 @@ struct ExerciseRecommendationScreen: View {
                     Text("Exercise 30 minutes a day.")
                 }
                 else {
-                    Text("exercise 15 minutes a day.")
-                }
-            }
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    Text("Your're already getting a great workout, so checkout this website for more information!\nhttps://time.com/4237126/13-ways-to-get-the-most-out-of-your-workout-according-to-research/")
         .background(LinearGradient(gradient: Gradient(colors: [Color.red.opacity(0.8), Color.orange.opacity(0.7)]), startPoint: .topLeading, endPoint: .bottomTrailing)
             .edgesIgnoringSafeArea(.all))
     }
