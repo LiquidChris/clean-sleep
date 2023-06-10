@@ -1,3 +1,4 @@
+import Foundation
 import SwiftUI
 import CoreML
 
@@ -375,23 +376,114 @@ struct ExerciseRecommendationScreen: View {
 
 struct DietScreen: View {
     let title: String
+    @State private var isActive: Bool = false
+    @State private var dietPrediction: Double?
+    
     var body: some View {
         ZStack {
-            Text(title)
-                .font(Font.system(size: 26, weight: .bold))
-                .multilineTextAlignment(.center)
-                .frame(
-                    maxWidth: .infinity,
-                    maxHeight: .infinity)
+            VStack{
+                Text(title)
+                    .font(Font.system(size: 26, weight: .bold))
+                    .multilineTextAlignment(.center)
+                    .frame(
+                        maxWidth: .infinity,
+                        maxHeight: .infinity)
+                    .background(
+                        LinearGradient(
+                            gradient: Gradient(colors:
+                                                [Color.yellow.opacity(0.7),
+                                                 Color.green.opacity(0.8)]),
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing)
+                        .edgesIgnoringSafeArea(.all))
+                Button("Tap me for a recommendation") {
+                    isActive = true
+                    dietPrediction = makeRecipePrediction(userSelection: "medium") // Updated line
+                }
+                .frame(width: 300, height: 100)
+                .font(.title)
+                .foregroundColor(Color.white)
                 .background(
                     LinearGradient(
                         gradient: Gradient(colors:
-                                            [Color.yellow.opacity(0.7),
-                                             Color.green.opacity(0.8)]),
+                                            [Color.mint.opacity(0.7),
+                                             Color.black.opacity(0.7)]),
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing)
                     .edgesIgnoringSafeArea(.all))
+                .cornerRadius(10)
+                
+            }
+            
+            NavigationLink(destination: DietRecommendationScreen(title: title, dietPrediction: dietPrediction), isActive: $isActive) {
+                EmptyView()
+            }
+            
         }
+    }
+    
+    func makeRecipePrediction(userSelection: String) -> Double {
+        guard let model = try? dietregression_1(configuration: MLModelConfiguration()) else {
+            fatalError("Failed to load the ML model.")
+        }
+        
+        // Step 3: Preprocess user selection
+        func preprocessUserSelection(_ selection: String) -> Int {
+            switch selection {
+            case "easy":
+                return 4
+            case "medium":
+                return 8
+            case "hard":
+                return 11
+            default:
+                return 0
+            }
+        }
+        
+        let steps = preprocessUserSelection(userSelection)
+        let ingredients = preprocessUserSelection(userSelection)
+        let minutes = 30
+        
+        // Step 4: Perform the prediction
+        let input = dietregression_1Input(minutes: Double(minutes), n_steps: Double(steps), n_ingredients: Double(ingredients))
+        
+        guard let prediction = try? model.prediction(input: input) else {
+            fatalError("Failed to make a prediction.")
+        }
+        
+        // Step 5: Postprocess and display the result
+        let predictedRecipeID = prediction.recipe_id
+        print("Predicted Recipe ID: \(predictedRecipeID)")
+        return predictedRecipeID
+    }
+}
+
+struct DietRecommendationScreen: View {
+    let title: String
+    let dietPrediction: Double?
+    
+    var body: some View {
+        VStack {
+            Text(title)
+                .font(Font.system(size: 26, weight: .bold))
+                .multilineTextAlignment(.center)
+            
+            if let dietPrediction = dietPrediction {
+                Text("Diet Prediction: \(dietPrediction)")
+            }
+        }
+        .frame(
+            maxWidth: .infinity,
+            maxHeight: .infinity)
+        .background(
+            LinearGradient(
+                gradient: Gradient(colors:
+                                    [Color.black.opacity(0.7),
+                                     Color.mint.opacity(0.7)]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing)
+            .edgesIgnoringSafeArea(.all))
     }
 }
 
