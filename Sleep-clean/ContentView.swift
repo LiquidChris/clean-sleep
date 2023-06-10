@@ -379,17 +379,19 @@ struct ExerciseRecommendationScreen: View {
                 .font(Font.system(size: 26, weight: .bold))
                 .multilineTextAlignment(.center)
             if let predictionOutput = healthDataFetcher.predictionOutput {
-//                Text("Prediction Output: \(predictionOutput)")
+                //                Text("Prediction Output: \(predictionOutput)")
                 if predictionOutput < 5 {
                     Text("Exercise 30 minutes a day.")
                 }
                 else {
                     Text("Your're already getting a great workout, so checkout this website for more information!\nhttps://time.com/4237126/13-ways-to-get-the-most-out-of-your-workout-according-to-research/")
-        .background(LinearGradient(gradient: Gradient(colors: [Color.red.opacity(0.8), Color.orange.opacity(0.7)]), startPoint: .topLeading, endPoint: .bottomTrailing)
-            .edgesIgnoringSafeArea(.all))
+                        .background(LinearGradient(gradient: Gradient(colors: [Color.red.opacity(0.8), Color.orange.opacity(0.7)]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                            .edgesIgnoringSafeArea(.all))
+                }
+            }
+        }
     }
 }
-
 struct DietScreen: View {
     let title: String
     @State private var isActive: Bool = false
@@ -483,23 +485,22 @@ struct DietRecommendationScreen: View {
         VStack {
             Text(title)
                 .font(Font.system(size: 26, weight: .bold))
-                .multilineTextAlignment(.center)
-            
+                .multilineTextAlignment(.center).frame(
+                    maxWidth: .infinity,
+                    maxHeight: .infinity)
+                .background(
+                    LinearGradient(
+                        gradient: Gradient(colors:
+                                            [Color.black.opacity(0.7),
+                                             Color.mint.opacity(0.7)]),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing)
+                    .edgesIgnoringSafeArea(.all))
             if let dietPrediction = dietPrediction {
                 Text("Diet Prediction: \(dietPrediction)")
             }
+                
         }
-        .frame(
-            maxWidth: .infinity,
-            maxHeight: .infinity)
-        .background(
-            LinearGradient(
-                gradient: Gradient(colors:
-                                    [Color.black.opacity(0.7),
-                                     Color.mint.opacity(0.7)]),
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing)
-            .edgesIgnoringSafeArea(.all))
     }
 }
 
