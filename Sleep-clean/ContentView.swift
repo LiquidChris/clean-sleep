@@ -378,9 +378,12 @@ struct ExerciseRecommendationScreen: View {
                 .font(Font.system(size: 26, weight: .bold))
                 .multilineTextAlignment(.center)
             if let predictionOutput = healthDataFetcher.predictionOutput {
-                Text("Prediction Output: \(predictionOutput)")
-                if predictionOutput < 10 {
-                    Text("Exercise 30 minutes a day")
+//                Text("Prediction Output: \(predictionOutput)")
+                if predictionOutput < 5 {
+                    Text("Exercise 30 minutes a day.")
+                }
+                else {
+                    Text("exercise 15 minutes a day.")
                 }
             }
         }
