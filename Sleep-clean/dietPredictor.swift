@@ -8,6 +8,7 @@
 import Foundation
 import CoreML
 
+
 // Step 2: Load the ML model
 func makeRecipePrediction(userSelection: String) {
     guard let model = try? dietregression_1(configuration: MLModelConfiguration()) else {
