@@ -32,6 +32,8 @@ struct HomeView: View {
     }
 }
 
+public var sleepQuality = -1.0
+
 struct ContentView: View {
     @State private var questions: [Question] = [
         Question(text: "What's your gender? (0 for Male, 1 for Female)"),
@@ -86,7 +88,7 @@ struct ContentView: View {
                 QuestionPromptView(question: question, answer: $answers[question.id], onNextQuestion: moveNextQuestion)
             } else {
                 SubmitView(isComplete: $isQuestionnaireComplete, onCompletion: {
-                    predictionOutput = makePrediction()
+                    sleepQuality = makePrediction() ?? -1.0
                 })
             }
         } else {
@@ -120,9 +122,10 @@ struct ContentView: View {
         for i in 0..<questions.count {
             if let answer = answers[questions[i].id] {
                 print("Question: \(questions[i].id), Answer: \(answer)")
-            } else {
-                print("No answer for question \(questions[i].id)")
             }
+//                else {
+//                print("No answer for question \(questions[i].id)")
+//            }
         }
         
         guard let gender = Double(answers[questions[0].id] ?? ""),
@@ -152,7 +155,6 @@ struct ContentView: View {
             
             print("Prediction made successfully")
             print("Quality of Sleep prediction: \(qualityOfSleep)")
-            
             return qualityOfSleep
         } catch {
             print("Error making prediction: \(error)")
@@ -271,7 +273,8 @@ struct SleepScreen: View {
                             .edgesIgnoringSafeArea(.all))
                     Button("Tap me for a recommendation") {
                         isActive = true
-                        sleepPrediction = ContentView().makePrediction() // Updated line
+//                        sleepPrediction = ContentView().makePrediction() // Updated line
+                        print(sleepQuality)
                     }
                     .frame(width: 300, height: 100)
                     .font(.title)
@@ -287,7 +290,7 @@ struct SleepScreen: View {
                     .cornerRadius(10)
                 }
                 
-                NavigationLink(destination: SleepRecommendationScreen(title: title, sleepPrediction: sleepPrediction), isActive: $isActive) {
+                NavigationLink(destination: SleepRecommendationScreen(title: "Sleep quality: ", prediction: sleepQuality), isActive: $isActive) {
                     EmptyView()
                 }
             }
@@ -297,7 +300,8 @@ struct SleepScreen: View {
 
 struct SleepRecommendationScreen: View {
     let title: String
-    let sleepPrediction: Double?
+    let prediction: Double
+//    let sleepPrediction: Double?
     
     var body: some View {
         VStack {
@@ -305,9 +309,9 @@ struct SleepRecommendationScreen: View {
                 .font(Font.system(size: 26, weight: .bold))
                 .multilineTextAlignment(.center)
             
-            if let sleepPrediction = sleepPrediction {
-                Text("Sleep Prediction: \(sleepPrediction)")
-            }
+//            if let sleepPrediction = sleepPrediction {
+//                Text("Sleep Prediction: \(sleepPrediction)")
+//            }
         }
         .frame(
             maxWidth: .infinity,
