@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F96FD842A343A2D00694EBE /* dietregression_1.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 4F96FD832A343A2D00694EBE /* dietregression_1.mlmodel */; };
 		4FD56E652A27045D00A4AA9A /* collector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD56E642A27045D00A4AA9A /* collector.swift */; };
 		EBC7125A2A1BECB700CBF261 /* Sleep_cleanApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC712592A1BECB700CBF261 /* Sleep_cleanApp.swift */; };
 		EBC7125C2A1BECB700CBF261 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC7125B2A1BECB700CBF261 /* ContentView.swift */; };
@@ -17,8 +18,6 @@
 		EBC712772A1BECB800CBF261 /* Sleep_cleanUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC712762A1BECB800CBF261 /* Sleep_cleanUITestsLaunchTests.swift */; };
 		EBC712842A1C406E00CBF261 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC712832A1C406E00CBF261 /* ViewController.swift */; };
 		EBD4FD642A33ED0200E72444 /* sleep util.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD4FD632A33ED0200E72444 /* sleep util.swift */; };
-		EBD4FD662A33F4C000E72444 /* dietPredictor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD4FD652A33F4C000E72444 /* dietPredictor.swift */; };
-		EBD4FD6A2A33F61000E72444 /* dietregression_1.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = EBD4FD692A33F61000E72444 /* dietregression_1.mlmodel */; };
 		F1EAA4702A33E9EA003F2749 /* applewatchregression_1.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = F1EAA46F2A33E9EA003F2749 /* applewatchregression_1.mlmodel */; };
 		F1EAA4722A33EA07003F2749 /* SleepRegressor 2.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = F1EAA4712A33EA07003F2749 /* SleepRegressor 2.mlmodel */; };
 /* End PBXBuildFile section */
@@ -41,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4F96FD832A343A2D00694EBE /* dietregression_1.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = dietregression_1.mlmodel; path = ../../../../Downloads/dietregression_1.mlmodel; sourceTree = "<group>"; };
 		4FD56E642A27045D00A4AA9A /* collector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = collector.swift; sourceTree = "<group>"; };
 		4FD56E6C2A270B5400A4AA9A /* archive (2) */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "archive (2)"; path = "../../../../Downloads/archive (2)"; sourceTree = "<group>"; };
 		EB2152142A30160A00A75A64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -56,8 +56,6 @@
 		EBC712762A1BECB800CBF261 /* Sleep_cleanUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sleep_cleanUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		EBC712832A1C406E00CBF261 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		EBD4FD632A33ED0200E72444 /* sleep util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "sleep util.swift"; sourceTree = "<group>"; };
-		EBD4FD652A33F4C000E72444 /* dietPredictor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dietPredictor.swift; sourceTree = "<group>"; };
-		EBD4FD692A33F61000E72444 /* dietregression_1.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = dietregression_1.mlmodel; path = ../../../../Downloads/dietregression_1.mlmodel; sourceTree = "<group>"; };
 		F1EAA46F2A33E9EA003F2749 /* applewatchregression_1.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = applewatchregression_1.mlmodel; sourceTree = "<group>"; };
 		F1EAA4712A33EA07003F2749 /* SleepRegressor 2.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = "SleepRegressor 2.mlmodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -119,14 +117,13 @@
 			isa = PBXGroup;
 			children = (
 				F1EAA4712A33EA07003F2749 /* SleepRegressor 2.mlmodel */,
-				EBD4FD652A33F4C000E72444 /* dietPredictor.swift */,
 				F1EAA46F2A33E9EA003F2749 /* applewatchregression_1.mlmodel */,
+				4F96FD832A343A2D00694EBE /* dietregression_1.mlmodel */,
 				EB2152142A30160A00A75A64 /* Info.plist */,
 				EBC712832A1C406E00CBF261 /* ViewController.swift */,
 				4FD56E642A27045D00A4AA9A /* collector.swift */,
 				EBC712592A1BECB700CBF261 /* Sleep_cleanApp.swift */,
 				EBC7125B2A1BECB700CBF261 /* ContentView.swift */,
-				EBD4FD692A33F61000E72444 /* dietregression_1.mlmodel */,
 				EBD4FD632A33ED0200E72444 /* sleep util.swift */,
 				EBC7125D2A1BECB800CBF261 /* Assets.xcassets */,
 				4FD56E6C2A270B5400A4AA9A /* archive (2) */,
@@ -290,15 +287,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EBD4FD662A33F4C000E72444 /* dietPredictor.swift in Sources */,
 				EBC712842A1C406E00CBF261 /* ViewController.swift in Sources */,
 				F1EAA4722A33EA07003F2749 /* SleepRegressor 2.mlmodel in Sources */,
 				EBC7125C2A1BECB700CBF261 /* ContentView.swift in Sources */,
 				4FD56E652A27045D00A4AA9A /* collector.swift in Sources */,
 				EBD4FD642A33ED0200E72444 /* sleep util.swift in Sources */,
 				F1EAA4702A33E9EA003F2749 /* applewatchregression_1.mlmodel in Sources */,
-				EBD4FD6A2A33F61000E72444 /* dietregression_1.mlmodel in Sources */,
 				EBC7125A2A1BECB700CBF261 /* Sleep_cleanApp.swift in Sources */,
+				4F96FD842A343A2D00694EBE /* dietregression_1.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
